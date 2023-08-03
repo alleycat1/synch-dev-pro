@@ -1,0 +1,31 @@
+version: '3'
+services:
+  mysql:
+    image: mariadb
+    network_mode: host
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+    command: ["mysqld", "--log-bin"]
+    healthcheck:
+      test: --health-cmd "mysqladmin ping" --health-interval 10s --health-timeout 5s --health-retries 10
+  clickhouse:
+    network_mode: host
+    image: yandex/clickhouse-server
+  redis:
+    network_mode: host
+    image: redis
+    healthcheck:
+      test: --health-cmd "redis-cli ping" --health-interval 10s --health-timeout 5s --health-retries 5
+  postgres:
+    network_mode: host
+    image: postgres:latest
+    environment:
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_USER: postgres
+    healthcheck:
+      test: --health-cmd=pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+  clickhouse-jdbc-bridge:
+    network_mode: host
+    image: long2ice/clickhouse-jdbc-bridge
+    environment:
+      BRIDGE_BIND_HOST: 0.0.0.0

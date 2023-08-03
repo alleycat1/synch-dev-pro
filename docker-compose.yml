@@ -1,0 +1,23 @@
+version: '3'
+services:
+  producer:
+    depends_on:
+      - redis
+    image: long2ice/synch
+    command: synch --alias mysql_db produce
+    volumes:
+      - ./synch.yaml:/synch/synch.yaml
+  # one service consume on schema
+  consumer.test:
+    depends_on:
+      - redis
+    image: long2ice/synch
+    command: synch --alias mysql_db consume --schema test
+    volumes:
+      - ./synch.yaml:/synch/synch.yaml
+  redis:
+    image: redis:latest
+    volumes:
+      - redis:/data
+volumes:
+  redis:

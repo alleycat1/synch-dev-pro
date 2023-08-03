@@ -1,0 +1,47 @@
+[tool.poetry]
+authors = ["long2ice <long2ice@gmail.com>"]
+description = "Sync data from other DB to ClickHouse, current support postgres and mysql, and support full and increment ETL."
+documentation = "https://github.com/long2ice/synch"
+homepage = "https://github.com/long2ice/synch"
+include = ["CHANGELOG.md", "LICENSE", "README.md", "pyproject.toml"]
+keywords = ["MySQL", "ClickHouse", "Sync", "replication"]
+license = "Apache-2.0"
+name = "synch"
+packages = [
+    { include = "synch" },
+]
+readme = "README.md"
+repository = "https://github.com/long2ice/synch.git"
+version = "0.7.2"
+
+[tool.poetry.dependencies]
+click = "*"
+clickhouse-driver = "*"
+kafka-python = "*"
+mysql-replication = "*"
+mysqlclient = "*"
+psycopg2 = "*"
+python = "^3.7"
+python-dateutil = "*"
+pyyaml = "*"
+redis = "*"
+mysqlparse = "*"
+ratelimitingfilter = "*"
+pymysql = "<1.0.0"
+loguru = "*"
+
+[tool.poetry.dev-dependencies]
+bandit = "*"
+black = "^19.10b0"
+flake8 = "*"
+isort = "*"
+pytest = "*"
+pytest-xdist = "*"
+pytest-mock = "*"
+
+[build-system]
+build-backend = "poetry.masonry.api"
+requires = ["poetry>=0.12"]
+
+[tool.poetry.scripts]
+synch = "synch.cli:cli"
